@@ -1,4 +1,7 @@
+@use '@/styles/tokens/colors' as *;
+
 * {
+	box-sizing: border-box;
 
 	&::before,
 	&::after {
@@ -12,6 +15,8 @@ html {
 	font-size: 100%;
 	line-height: 1;
 
+	scroll-behavior: smooth;
+
 	&:focus-within {
 		scroll-behavior: smooth;
 	}
@@ -20,8 +25,6 @@ html {
 body {
 	width: 100%;
 	height: 100vh;  
-
-	text-rendering: optimizespeed;
 }
 
 body,
@@ -49,6 +52,8 @@ small {
 
 ol,
 ul {
+	margin: 0;
+
 	list-style: none;
 }
 
@@ -70,6 +75,8 @@ button,
 input,
 select,
 textarea {
+	border: none;
+
 	font-family: inherit;
 }
 
@@ -82,7 +89,6 @@ select {
 [type='reset'],
 [type='submit'],
 button {
-	-webkit-appearance: button;
 	background-color: transparent;
 }
 
@@ -122,6 +128,7 @@ table {
 		&:not(select){
 
 			&:not(textarea) {
+				outline-color: $color-low-darkest;
 				outline-offset: -2px;
 				outline-style: solid;
 				outline-width: 2px;
@@ -131,7 +138,6 @@ table {
 }
 
 :focus {
-
 	@extend %focus_style;
 
 	&:not(:focus-visible) {
@@ -141,7 +147,6 @@ table {
 }
 
 :focus-visible {
-
 	@extend %focus_style;
 }
 
