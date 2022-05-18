@@ -34,23 +34,19 @@
                         {{ contact.name }}
                     </td>
                     <td>{{ contact.email }}</td>
-                    <td>{{ contact.phone }}</td>
+                    <td>{{ masks.formatPhone(contact.phone) }}</td>
                     <td>
                         <div class="contactsTable_actions">
                             <button
-                                class="contactsTable_buttonEdit"
+                                class="contactsTable_button -edit"
                                 title="Clique para editar o contato"
                                 @click=""
-                            >
-                                e
-                            </button>
+                            />
                             <button
-                                class="contactsTable_buttonDelete"
+                                class="contactsTable_button -delete"
                                 title="Clique para excluir o contato"
                                 @click=""
-                            >
-                                d
-                            </button>
+                            />
                         </div>
                     </td>
                 </tr>
@@ -62,6 +58,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import masks from '@/utils/masks'
 import randomColor from '@/utils/randomColor'
 
 const store = useStore()
@@ -78,16 +75,19 @@ const contacts =  computed(() => {
 })
 
 function loadPatients() {
-    //store.dispatch('contacts/updateContacts', newContact)
-    store.dispatch('contacts/fetchContacts')
+    store.dispatch('contacts/updateContacts', newContact)
+    //store.dispatch('contacts/fetchContacts')
 }
 
 loadPatients()
 </script>
 
 <style lang="scss">
+@use '@/styles/tokens/spacings.scss' as *;
+@use '@/styles/tokens/speeds.scss' as *;
 @use '@/styles/tokens/colors.scss' as *;
 @use '@/styles/snippets/tables.scss' as *;
+@use '@/styles/utils/interactions.scss' as *;
 
 .contactsTable_container {
 	@extend %table_container;
@@ -112,5 +112,45 @@ loadPatients()
 
 	color: $color-high-lightest;
 	border-radius: 50%;
+}
+
+.contactsTable_actions {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+
+	gap: $spacing-md-vh;
+}
+
+.contactsTable_button {
+	--size: 16px;
+
+	width: var(--size);
+	height: var(--size);
+
+	background-color: $color-low-lightest;
+
+	transition: background-color ease-in-out $speed-base;
+
+	cursor: pointer;
+
+	mask-size: contain;
+	will-change: background-color;
+
+	&.-edit {
+		-webkit-mask: url('@assets/icons/ic-edit.svg');
+
+		mask: url('@assets/icons/ic-edit.svg');
+	}
+
+	&.-delete {
+		-webkit-mask: url('@assets/icons/ic-delete.svg');
+
+		mask: url('@assets/icons/ic-delete.svg');	
+	}
+
+	@include interaction_full {
+		background-color: $color-low-base;
+	}
 }
 </style>

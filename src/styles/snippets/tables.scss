@@ -73,17 +73,17 @@
 		text-align: left;
 
 		&:first-of-type {
-			padding-left: $spacing-xxxs-vh;
+			padding-left: $spacing-xxxs-px;
 		}
 
 		&:last-of-type {
-			padding-right: $spacing-xs-vh;
+			padding-right: $spacing-xs-px;
 
 			text-align: right;
 		}	
 
 		&:not(:last-child) {
-			padding-right: $spacing-xxs-px;
+			padding-right: $spacing-xs-px;
 		}
 	}
 }
