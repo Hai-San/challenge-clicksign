@@ -10,9 +10,11 @@
         <p class="emptyList_text">
             {{ text }}
         </p>
+        <ButtonCreateContact />
     </div>
 </template>
 <script setup>
+import ButtonCreateContact from '@/components/ButtonCreateContact.vue'
 import imageUrl from '@assets/icons/ic-book.svg'
 
 const props = defineProps({
@@ -38,6 +40,7 @@ const props = defineProps({
 
 	width: 100%;
 	margin-top: $spacing-xxl-vh;
+	gap: $spacing-md-vh;
 }
 
 .emptyList_img {
@@ -46,9 +49,7 @@ const props = defineProps({
 
 .emptyList_text {
 	@extend %font_xs_regular;
-		
-	margin-top: $spacing-md-vh;
-	
+
 	color: $color-low-base;
 
 	text-align: center;
