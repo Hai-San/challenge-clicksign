@@ -1,5 +1,8 @@
 <template>
-    <div class="contactsTable_container">
+    <div
+        v-if="contacts.length"
+        class="contactsTable_container"
+    >
         <table class="contactsTable">
             <thead>
                 <tr>
@@ -53,6 +56,10 @@
             </tbody>
         </table>
     </div>
+    <EmptyList
+        v-else
+        :text="`Nenhum contato foi criado ainda`"
+    />
 </template>
 
 <script setup>
@@ -61,22 +68,27 @@ import { useStore } from 'vuex'
 import masks from '@/utils/masks'
 import randomColor from '@/utils/randomColor'
 
+import EmptyList from './EmptyList.vue'
+
 const store = useStore()
 
-const newContact = JSON.stringify({
-    name: 'Samuel',
-    email: 'samuelmartinenghi@gmail.com',
-    phone: '47992838463',
-    new: true
-})
+// const newContact = JSON.stringify([
+//     {
+//         name: 'Samuel',
+//         email: 'samuelmartinenghi@gmail.com',
+//         phone: '47992838463',
+//         new: true
+//     }
+// ])
 
 const contacts =  computed(() => {
     return store.state.contacts.all
 })
 
+
 function loadPatients() {
-    store.dispatch('contacts/updateContacts', newContact)
-    //store.dispatch('contacts/fetchContacts')
+    //store.dispatch('contacts/updateContacts', newContact)
+    store.dispatch('contacts/fetchContacts')
 }
 
 loadPatients()

@@ -19,7 +19,7 @@ const actions = {
 
 const mutations = {
     setContacts(state, contacts) {
-        state.all.push(contacts)   
+        state.all = contacts
     }
 }
 
