@@ -7,16 +7,13 @@ const state = {
 const actions = {
     fetchContacts({ commit }) {
         const contactsList = apiContacts.getContacts()
-        contactsList.then(response => {
-            commit('setContacts', response)
-        })       
+        if (contactsList) {			
+            commit('setContacts', contactsList)     
+        }
     },
-    addNewContact({ commit }) {
-        const apiResponse = apiContacts.addNewContact()
-
-        apiResponse.then(response => {
-            commit('setContacts', response)
-        })  
+    updateContacts({ dispatch }, payload) {
+        apiContacts.updateContacts(payload)
+        dispatch('fetchContacts')
     }
 }
 

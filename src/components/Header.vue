@@ -46,6 +46,7 @@ const contactSearchValue = ref('')
 
 	width: 100%;
 	padding-top: $spacing-xs-vh;
+	padding-bottom: $spacing-lg-vh;
 }
 
 .header_container {

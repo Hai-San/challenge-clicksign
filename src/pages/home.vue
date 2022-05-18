@@ -1,27 +1,28 @@
 <template>
     <Header />
-    <main>
-        {{ contacts }}
+    <main class="pageHome">
+        <div class="pageHome_container">
+            <ContactsTable />
+        </div>
     </main>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useStore } from 'vuex'
 import Header from '@/components/Header.vue'
-
-const store = useStore()
-
-const contacts =  computed(() => {
-    return store.state.contacts.all
-})
-
-function loadPatients() {
-    store.dispatch('contacts/fetchContacts')
-}
-
-loadPatients()
+import ContactsTable from '@/components/ContactsTable.vue'
 </script>
 
 <style lang="scss">
+@use '@/styles/snippets/containers.scss' as *;
+
+.pageHome {
+	display: flex;
+	justify-content: center;
+
+	width: 100%;
+}
+
+.pageHome_container {
+	@extend %container;
+}
 </style>

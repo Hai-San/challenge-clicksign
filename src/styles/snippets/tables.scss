@@ -1,0 +1,99 @@
+@use '@/styles/tokens/borders.scss' as *;
+@use '@/styles/tokens/colors.scss' as *;
+@use '@/styles/tokens/spacings.scss' as *;
+@use '@/styles/snippets/fonts.scss' as *;
+@use '@/styles/utils/interactions.scss' as *;
+
+@mixin table () {
+	position: relative;
+
+	box-sizing: border-box;
+	overflow: hidden;
+
+	width: 100%;	
+
+	background-color: $color-high-lightest;
+	border: 1px solid $color-high-dark;
+	border-collapse: separate;
+	border-radius: $border-radius-base;
+
+	border-spacing: 0px;	
+
+	thead {
+		width: 100%;
+	}
+
+	tr {
+		width: 100%;
+
+		box-shadow: none;
+
+		&:not(:first-child) {
+
+			td {
+				border-top: 0px;
+			}
+		}
+
+		&:last-of-type {
+
+			td {
+				border-bottom: 0px;
+			}
+		}
+	}
+
+	th {
+		@extend %font_xxs_regular;
+		padding-top: $spacing-xs-vh;
+		padding-bottom: $spacing-xxxs-vh;
+
+		color: $color-low-lightest;
+	}
+
+	tbody {
+
+		tr {	
+			@include interaction_full {
+				background-color: $color-primary-lightest;
+			}
+		}
+	}
+
+	td {
+		@extend %font_xxs_regular;
+		padding: $spacing-xxs-vh 0px;
+		
+		color: $color-low-base;
+		border-top: $border-width-small solid $color-high-dark;
+		border-bottom: $border-width-small solid $color-high-dark;
+	}
+
+	td,th {
+		text-align: left;
+
+		&:first-of-type {
+			padding-left: $spacing-xxxs-vh;
+		}
+
+		&:last-of-type {
+			padding-right: $spacing-xs-vh;
+
+			text-align: right;
+		}	
+
+		&:not(:last-child) {
+			padding-right: $spacing-xxs-px;
+		}
+	}
+}
+
+%table {
+	@include table;
+}
+
+%table_container {
+	overflow-x: auto;
+
+	width: 100%;
+}

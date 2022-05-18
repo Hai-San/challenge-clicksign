@@ -1,26 +1,17 @@
 export default {
-    async getContacts() {		
+    getContacts() {		
         try {           
-            const response = await localStorage.getItem('contacts')			
-			
-            if (response) {
-                return response
-            } else {
-                throw new Error('Contacts not found')
-            }
+            const contacts = localStorage.getItem('contacts')		
+            if (contacts) {
+                return JSON.parse(contacts)
+            } 
         } catch (error) {
             console.error(error)
         }
     },
-    async addNewContact() {
+    updateContacts(payload) {
         try {			
-            const response = await localStorage.setItem('contacts', 'red')		
-			
-            if (response) {
-                return response
-            } else {
-                throw new Error('Error on try add a new contact')
-            }
+            localStorage.setItem('contacts', payload)	
         } catch (error) {
             console.error(error)
         }
