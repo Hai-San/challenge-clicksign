@@ -1,0 +1,34 @@
+@use '@/styles/tools/convertPxToVh.scss' as *;
+
+$spacing-nano: 4;
+$spacing-xxxs: 8;
+$spacing-xxs: 12;
+$spacing-xs: 16;
+$spacing-sm: 20;
+$spacing-md: 24;
+$spacing-lg: 32;
+$spacing-xl: 40;
+$spacing-xxl: 52;
+$spacing-xxxl: 64;
+
+$spacing-nano-px: #{$spacing-nano}px;
+$spacing-xxxs-px: #{$spacing-xxxs}px;
+$spacing-xxs-px: #{$spacing-xxs}px;
+$spacing-xs-px: #{$spacing-xs}px;
+$spacing-sm-px: #{$spacing-sm}px;
+$spacing-md-px: #{$spacing-md}px;
+$spacing-lg-px: #{$spacing-lg}px;
+$spacing-xl-px: #{$spacing-xl}px;
+$spacing-xxl-px: #{$spacing-xxl}px;
+$spacing-xxxl-px: #{$spacing-xxxl}px;
+
+$spacing-nano-vh: pxvh($spacing-nano);
+$spacing-xxxs-vh: pxvh($spacing-xxxs);
+$spacing-xxs-vh: pxvh($spacing-xxs);
+$spacing-xs-vh: pxvh($spacing-xs);
+$spacing-sm-vh: pxvh($spacing-sm);
+$spacing-md-vh: pxvh($spacing-md);
+$spacing-lg-vh: pxvh($spacing-lg);
+$spacing-xl-vh: pxvh($spacing-xl);
+$spacing-xxl-vh: pxvh($spacing-xxl);
+$spacing-xxxl-vh: pxvh($spacing-xxxl);
