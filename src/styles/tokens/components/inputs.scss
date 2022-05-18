@@ -1,0 +1,24 @@
+@use '@/styles/tokens/colors' as *;
+@use '@/styles/tokens/borders' as *;
+@use '@/styles/tokens/spacings' as *;
+@use '@/styles/tokens/font/weights.scss' as *;
+@use '@/styles/tokens/font/sizes.scss' as *;
+@use '@/styles/tools/convertPxToRem.scss' as *;
+
+$input-color: $color-low-base;
+
+$input-border-color: $color-high-medium;
+$input-border-color-focus: $color-low-lightest;
+$input-border-radius: $border-radius-base;
+
+$input-background-color: $color-high-medium;
+
+$input-placeholder-color: $color-low-lightest;
+
+$input-icon-color: $color-low-lightest;
+$input-icon-spacing: $spacing-xxxs-px;
+
+$input-padding: $spacing-xxxs-px;
+
+$input-font-weight: $font-weight-regular;
+$input-font-size: #{pxrem($font-size-xs)}rem;

@@ -1,13 +1,9 @@
 <template>
-    <main class="pageHome">
-        <h1 class="pageHome_title">
-            Home
-        </h1>
-    </main>
+    <Header />
 </template>
 
-<script>
-
+<script setup>
+import Header from '@/components/Header.vue'
 </script>
 
 <style lang="scss">
