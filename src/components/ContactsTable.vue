@@ -61,13 +61,14 @@
         :text="`Nenhum contato foi criado ainda`"
     />
     <ModalContact
-        v-bind="editContactData"
-        @close="editContactData.show = false"
+        :id="id"
+        :show="show"
+        @close="show = false"
     />
 </template>
 
 <script setup>
-import { reactive, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
 import masks from '@/utils/masks'
 import randomColor from '@/utils/randomColor'
@@ -76,10 +77,8 @@ import ModalContact from '@/components/ModalContact.vue'
 import EmptyList from './EmptyList.vue'
 
 const store = useStore()
-const editContactData = reactive({
-    show: false,
-    id: 0
-})
+const show = ref(false)
+const id = ref(0)
 
 const contacts =  computed(() => {
     return store.state.contacts.all
@@ -90,8 +89,8 @@ function loadPatients() {
 }
 
 function editContact(contact) {
-    editContactData.id = contact.id
-    editContactData.show = true
+    id.value = contact.id
+    show.value = true
 }
 
 loadPatients()
