@@ -4,6 +4,12 @@ const state = {
     all: []
 }
 
+const getters = {
+    haveContacts(state) {
+        return state.all.length > 0
+    }
+}
+
 const actions = {
     fetchContacts({ commit }) {
         const contactsList = apiContacts.getContacts()
@@ -26,6 +32,7 @@ const mutations = {
 export default {
     namespaced: true,
     state,
+    getters,
     actions,
     mutations
 }

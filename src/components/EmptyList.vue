@@ -10,7 +10,7 @@
         <p class="emptyList_text">
             {{ text }}
         </p>
-        <ButtonCreateContact />
+        <ButtonCreateContact :show-when="false" />
     </div>
 </template>
 <script setup>

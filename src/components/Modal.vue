@@ -12,6 +12,9 @@
                     @click="close()"
                 />
                 <div class="modal_box">
+                    <h2 class="modal_title">
+                        <slot name="title" />
+                    </h2>
                     <div class="modal_content">
                         <slot name="content" />
                     </div>
@@ -67,6 +70,8 @@ onUnmounted(() => {
 @use '@/styles/tokens/colors.scss' as *;
 @use '@/styles/utils/interactions.scss' as *;
 @use '@/styles/tokens/speeds.scss' as *;
+@use '@/styles/tokens/spacings.scss' as *;
+@use '@/styles/tokens/borders.scss' as *;
 
 .modal {
 	position: fixed;
@@ -106,9 +111,16 @@ onUnmounted(() => {
 	position: relative;
 	z-index: 2;
 
+	width: 438px;
 	max-width: 100%;
+	padding: $spacing-xs-vh;
 
 	background-color: $color-high-lightest;
+	border-radius: $border-radius-large;
+}
+
+.modal_title {
+	width: 100%;
 }
 
 .modal_button_close {

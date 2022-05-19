@@ -12,6 +12,8 @@
                 >
             </a>
 
+            <ButtonCreateContact class="header_button" />
+
             <div class="contactSearch_field">
                 <label
                     class="contactSearch_label"
@@ -31,6 +33,8 @@
 
 <script setup>
 import { ref } from 'vue'
+import ButtonCreateContact from '@/components/ButtonCreateContact.vue'
+
 const contactSearchValue = ref('')
 </script>
 
@@ -56,14 +60,18 @@ const contactSearchValue = ref('')
 }
 
 .headerLogo_img {
-	width: 147px;
+	width: 148px;
+}
+
+.header_button {
+	margin-left: $spacing-xl-vh;
 }
 
 .contactSearch_field {
 	display: flex;
 	flex-grow: 1;
 
-	max-width: 73%;
+	max-width: 72%;
 }
 
 .contactSearch_label {
