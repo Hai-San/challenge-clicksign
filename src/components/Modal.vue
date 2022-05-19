@@ -11,26 +11,31 @@
                     class="modal_background"
                     @click="close()"
                 />
-                <div class="modal_box">
+                <div
+                    class="modal_box"
+                >
                     <h2 class="modal_title">
                         <slot name="title" />
                     </h2>
                     <div class="modal_content">
                         <slot name="content" />
                     </div>
-                    <div>
+                    <div class="modal_buttons">
                         <button
                             class="modal_button_close"
-                            aria-label="Cancelar"
+                            type="button"
                             @click="close()"
                         >
                             Cancelar
                         </button>
                         <button
                             class="modal_button_confirm"
-                            aria-label=""
+                            :disabled="submitButtonStatus"
+                            :form="form"
+                            type="submit"
+                            @click="submit()"
                         >
-                            Confirmar
+                            {{ submitButtonText }}
                         </button>
                     </div>
                 </div>
@@ -42,13 +47,32 @@
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
 
-const emit = defineEmits([ 'close' ])
+const emit = defineEmits([ 'close', 'submit' ])
 const props = defineProps({
-    show: Boolean
+    show: Boolean,
+    form: {
+        type: String,
+        default: '',
+        required: false
+    },
+    submitButtonText: {
+        type: String,
+        default: 'Enviar',
+        required: false
+    },
+    submitButtonStatus: {
+        type: Boolean,
+        default: false,
+        required: false
+    }
 })
 
 function close() {
     emit('close')
+}
+
+function submit() {
+    emit('submit')
 }
 
 function handleKeyup(event) {
@@ -67,11 +91,13 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
+@use '@/styles/snippets/fonts.scss' as *;
 @use '@/styles/tokens/colors.scss' as *;
 @use '@/styles/utils/interactions.scss' as *;
 @use '@/styles/tokens/speeds.scss' as *;
 @use '@/styles/tokens/spacings.scss' as *;
 @use '@/styles/tokens/borders.scss' as *;
+@use '@/styles/snippets/buttons.scss' as *;
 
 .modal {
 	position: fixed;
@@ -108,26 +134,54 @@ onUnmounted(() => {
 }
 
 .modal_box {
+	--padding: #{$spacing-xs-vh};
+
 	position: relative;
 	z-index: 2;
 
 	width: 438px;
 	max-width: 100%;
-	padding: $spacing-xs-vh;
 
 	background-color: $color-high-lightest;
 	border-radius: $border-radius-large;
 }
 
 .modal_title {
-	width: 100%;
-}
+	@extend %font_xs_regular;
 
-.modal_button_close {
+	width: 100%;
+	padding: var(--padding);
+
+	color: $color-text-low;
+	border-bottom: $border-width-small solid $border-color-high-darkest;
 }
 
 .modal_content {
 	width: 100%;
+	padding: $spacing-md-vh var(--padding);
+}
+
+.modal_buttons {
+	display: flex;
+	justify-content: flex-end;
+
+	width: 100%;
+	padding: var(--padding);
+	gap: $spacing-xs-vh;
+
+	border-top: $border-width-small solid $border-color-high-darkest;
+}
+
+.modal_button_close {
+	@extend %font_xxs_medium;
+
+	color: $color-text-base;
+
+	cursor: pointer;
+}
+
+.modal_button_confirm {
+	@extend %button_primary;
 }
 
 .modal-enter-from,

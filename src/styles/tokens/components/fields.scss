@@ -5,13 +5,15 @@
 @use '@/styles/tokens/font/sizes.scss' as *;
 @use '@/styles/tools/convertPxToRem.scss' as *;
 
+$field-gap: $spacing-nano-px;
+
 $input-color: $color-low-base;
 
-$input-border-color: $color-high-medium;
+$input-border-color: $color-high-darkest;
 $input-border-color-focus: $color-low-lightest;
 $input-border-radius: $border-radius-base;
 
-$input-background-color: $color-high-medium;
+$input-background-color: $color-high-lightest;
 
 $input-placeholder-color: $color-low-lightest;
 
@@ -22,3 +24,11 @@ $input-padding: $spacing-xxxs-px;
 
 $input-font-weight: $font-weight-regular;
 $input-font-size: #{pxrem($font-size-xs)}rem;
+
+$input-label-color: $color-low-base;
+$input-label-font-size: #{pxrem($font-size-xxs)}rem;
+$input-label-font-weight: $font-weight-regular;
+
+//******* secondary
+$input-secondary-background-color: $color-high-medium;
+$input-secondary-border-color: $color-high-medium;

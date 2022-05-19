@@ -10,7 +10,7 @@
             aria-hidden="true"
         >
         <span class="button_createContact_text">Criar contato</span>
-        <ModalCreateContact
+        <ModalContact
             :show="show"
             @close="show = false"
         />
@@ -19,7 +19,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
-import ModalCreateContact from '@/components/ModalCreateContact.vue'
+import ModalContact from '@/components/ModalContact.vue'
 
 const show = ref(false)
 const store = useStore()
@@ -37,33 +37,12 @@ const props = defineProps({
 })
 </script>
 <style lang="scss">
-@use '@/styles/snippets/fonts.scss' as *;
-@use '@/styles/utils/interactions.scss' as *;
-@use '@/styles/tokens/colors.scss' as *;
-@use '@/styles/tokens/spacings.scss' as *;
-@use '@/styles/tokens/borders.scss' as *;
-@use '@/styles/tokens/speeds.scss' as *;
+@use '@/styles/snippets/buttons.scss' as *;
 
 .button_createContact {
-	display: flex;
-	align-items: center;
+	@extend %button_secondary;
+	
 	justify-content: space-between;
-
-	padding: $spacing-xxs-px $spacing-sm-px;
-	gap: $spacing-xxxs-px;
-
-	background-color: $color-secondary-base;
-	border-radius: 50em;
-
-	transition: background-color ease-in-out $speed-base;
-
-	cursor: pointer;
-
-	will-change: background-color;
-
-	@include interaction_full {
-		background-color: $color-secondary-light;
-	}
 }
 
 .button_createContact_icon {
@@ -73,9 +52,6 @@ const props = defineProps({
 }
 
 .button_createContact_text {
-	@extend %font_xxs_medium;
 	flex-grow: 1;
-
-	color: $color-primary-base;
 }
 </style>

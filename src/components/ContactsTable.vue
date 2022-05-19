@@ -23,7 +23,7 @@
             <tbody>
                 <tr
                     v-for="contact in contacts"
-                    :key="contact.email"
+                    :key="contact.id"
                 >
                     <td class="contactsTable_thumbnail_col">
                         <div
@@ -43,12 +43,12 @@
                             <button
                                 class="contactsTable_button -edit"
                                 title="Clique para editar o contato"
-                                @click=""
+                                @click="editContact(contact)"
                             />
                             <button
                                 class="contactsTable_button -delete"
                                 title="Clique para excluir o contato"
-                                @click=""
+                                @click="deleteContact(contact)"
                             />
                         </div>
                     </td>
@@ -60,35 +60,38 @@
         v-else
         :text="`Nenhum contato foi criado ainda`"
     />
+    <ModalContact
+        v-bind="editContactData"
+        @close="editContactData.show = false"
+    />
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 import masks from '@/utils/masks'
 import randomColor from '@/utils/randomColor'
+import ModalContact from '@/components/ModalContact.vue'
 
 import EmptyList from './EmptyList.vue'
 
 const store = useStore()
-
-// const newContact = JSON.stringify([
-//     {
-//         name: 'Samuel',
-//         email: 'samuelmartinenghi@gmail.com',
-//         phone: '47992838463',
-//         new: true
-//     }
-// ])
+const editContactData = reactive({
+    show: false,
+    id: 0
+})
 
 const contacts =  computed(() => {
     return store.state.contacts.all
 })
 
-
 function loadPatients() {
-    //store.dispatch('contacts/updateContacts', newContact)
     store.dispatch('contacts/fetchContacts')
+}
+
+function editContact(contact) {
+    editContactData.id = contact.id
+    editContactData.show = true
 }
 
 loadPatients()

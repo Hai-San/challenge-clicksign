@@ -1,0 +1,23 @@
+@use '@/styles/tokens/borders' as *;
+@use '@/styles/tokens/colors' as *;
+@use '@/styles/tokens/spacings' as *;
+@use '@/styles/tokens/font/weights.scss' as *;
+@use '@/styles/tokens/font/sizes.scss' as *;
+@use '@/styles/tools/convertPxToRem.scss' as *;
+
+$button-primary-color: $color-high-lightest;
+$button-primary-background-color: $color-primary-base;
+$button-primary-background-color-hover: $color-primary-base;
+$button-primary-border-color: $color-primary-base;
+
+$button-primary-border-width: $border-width-small;
+$button-primary-padding: $spacing-xxs-px $spacing-sm-px;
+$button-primary-gap: $spacing-xxxs-px;
+$button-primary-font-weight: $font-weight-medium;
+$button-primary-font-size: #{pxrem($font-size-xxs)}rem;
+
+//********* Secondary
+$button-secondary-color: $color-primary-base;
+$button-secondary-background-color: $color-secondary-base;
+$button-secondary-background-color-hover: $color-secondary-light;
+$button-secondary-border-color: $color-secondary-base;

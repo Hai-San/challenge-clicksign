@@ -15,6 +15,9 @@ $color-low-darkest: #000000;
 $color-low-base: #2a2d3b;
 $color-low-lightest: #9198af;
 
-$color-low-transparent-base: rgba(0,0,0,.08);
+$color-low-transparent-base: rgba(0,0,0,.4);
 
 $color-info-base: #68a0fa;
+
+$color-text-base: $color-primary-base;
+$color-text-low: $color-low-base;

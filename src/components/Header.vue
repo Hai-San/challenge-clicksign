@@ -39,7 +39,7 @@ const contactSearchValue = ref('')
 </script>
 
 <style lang="scss">
-@use '@/styles/snippets/inputs.scss' as *;
+@use '@/styles/snippets/fields.scss' as *;
 @use '@/styles/snippets/containers.scss' as *;
 @use '@/styles/snippets/layout.scss' as *;
 @use '@/styles/tokens/spacings.scss' as *;

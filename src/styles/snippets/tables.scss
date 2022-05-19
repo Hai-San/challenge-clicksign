@@ -53,7 +53,12 @@
 
 	tbody {
 
-		tr {	
+		tr {
+
+			&.is_new {
+				background-color: $color-primary-lightest;
+			}	
+
 			@include interaction_full {
 				background-color: $color-primary-lightest;
 			}

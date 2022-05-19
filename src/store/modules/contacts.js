@@ -18,8 +18,11 @@ const actions = {
         }
     },
     updateContacts({ dispatch }, payload) {
-        apiContacts.updateContacts(payload)
-        dispatch('fetchContacts')
+        const apiResponse = apiContacts.updateContacts(payload)
+		
+        apiResponse.then(response => {
+            dispatch('fetchContacts')
+        })
     }
 }
 

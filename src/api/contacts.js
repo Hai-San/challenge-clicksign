@@ -9,9 +9,15 @@ export default {
             console.error(error)
         }
     },
-    updateContacts(payload) {
+    async updateContacts(payload) {
         try {			
-            localStorage.setItem('contacts', payload)	
+            const response = await new Promise(resolve => {
+                const payloadString = JSON.stringify(payload.value)
+                localStorage.setItem('contacts', payloadString)	
+				  resolve()
+            })
+			
+            return response
         } catch (error) {
             console.error(error)
         }
