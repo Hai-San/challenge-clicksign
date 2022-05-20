@@ -24,7 +24,7 @@
                 <tr
                     v-for="(contact, index) in contactsFiltered"
                     :key="index"
-                    ref="listItems"
+                    :ref="el => (listItems[index] = el)"
                     :data-created="contact.date.created"
                 >
                     <td class="contactsTable_thumbnail_col">
@@ -76,7 +76,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 import masks from '@/utils/masks'
 import randomColor from '@/utils/randomColor'
@@ -125,16 +125,14 @@ watch(contactsFiltered, () => {
     }
 }, { deep: true })
 
-watch(contacts, () => {
-    checkFeatured()
-}, { deep: true })
+watchEffect(() =>  {
+    checkFeatured(listItems.value)
+})
 
-function checkFeatured() {
-    contacts.value.forEach((contact, index) => {
-        const secondsPassed = getSecondsPassed(contact.date.created)
+function checkFeatured(elements) {
+    elements.forEach((el, index) => {
+        const secondsPassed = getSecondsPassed(el.dataset.created)
         if(secondsPassed < 10) {
-            const el = listItems.value[index]
-
             if(el && !el.classList.contains(featuredContactClass)) {
                 el.classList.add(featuredContactClass)	
                 removeFeatured(el, secondsPassed)
