@@ -1,0 +1,94 @@
+@use '@/styles/tokens/components/fields.scss' as *;
+@use '@/styles/tokens/speeds.scss' as *;
+@use '@/styles/utils/placeholderColor.scss' as *;
+@use '@/styles/utils/interactions.scss' as *;
+
+@mixin field ($gap: $field-gap) {
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+
+	width: 100%;
+	gap: $gap;
+
+	&.-small {
+		width: 36%;
+		min-width: 150px;
+	}
+}
+
+@mixin input (
+	$color: $input-color, 
+	$background: $input-background-color, 
+	$border-color: $input-border-color, 
+	$border-color-focus: $input-border-color-focus, 
+	$border-radius: $input-border-radius, 
+	$placeholder: $input-placeholder-color, 
+	$speed: $speed-base,
+	$font-size: $input-font-size,
+	$font-weight: $input-font-weight
+) {
+	@include placeholderColor($color: $placeholder);
+	
+	width: 100%;
+
+	color: $color;
+	background-color: $background;
+	border: 1px solid $border-color;
+	border-radius: $border-radius;
+
+	font-size: $font-size;
+	font-weight: $font-weight;
+	
+	transition: background-color ease-in-out $speed;
+	
+	will-change: background-color;
+	
+	@include interaction_focus {
+		border-color: $border-color-focus;
+	}
+}
+
+@mixin input_size ($padding: $input-padding) {	
+	padding: $padding;
+}
+
+@mixin input_icon ($iconUrl: '', $size: 16px, $spacing: $input-icon-spacing) {
+	background-image: url(#{$iconUrl});
+	background-size: $size;
+	background-position: center right $spacing;
+	background-repeat: no-repeat;
+}
+
+@mixin input_label (
+	$color: $input-label-color,
+	$font-size: $input-label-font-size,
+	$font-weight: $input-label-font-weight,
+) {	
+	color: $color;
+
+	font-size: $font-size;
+	font-weight: $font-weight;
+}
+
+%field {
+	@include field;
+}
+
+%input {
+	@include input;
+	@include input_size;
+}
+
+%input_label {
+	@include input_label;
+}
+
+%input_search {
+	@include input(
+		$background: $input-secondary-background-color,
+		$border-color: $input-secondary-border-color
+	);
+	@include input_size;
+	@include input_icon($iconUrl: '@assets/icons/ic-search.svg');
+}

@@ -1,0 +1,11 @@
+@use '@/styles/tokens/colors' as *;
+
+$border-width-base: 2px;
+$border-width-small: 1px;
+
+$border-radius-base: 4px;
+$border-radius-large: 16px;
+$border-radius-rounded: 50%;
+
+$border-color-primary-base: $color-primary-base;
+$border-color-high-darkest: $color-high-darkest;

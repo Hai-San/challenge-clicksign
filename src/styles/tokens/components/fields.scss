@@ -1,0 +1,33 @@
+@use '@/styles/tokens/colors' as *;
+@use '@/styles/tokens/borders' as *;
+@use '@/styles/tokens/spacings' as *;
+@use '@/styles/tokens/font/weights.scss' as *;
+@use '@/styles/tokens/font/sizes.scss' as *;
+
+$field-gap: $spacing-nano-px;
+
+$input-color: $color-low-base;
+
+$input-border-color: $color-high-darkest;
+$input-border-color-focus: $color-low-lightest;
+$input-border-radius: $border-radius-base;
+
+$input-background-color: $color-high-lightest;
+
+$input-placeholder-color: $color-low-lightest;
+
+$input-icon-color: $color-low-lightest;
+$input-icon-spacing: $spacing-xxxs-px;
+
+$input-padding: $spacing-nano-px $spacing-xxxs-px;
+
+$input-font-weight: $font-weight-regular;
+$input-font-size: $font-size-xs-rem;
+
+$input-label-color: $color-low-base;
+$input-label-font-size: $font-size-xxs-rem;
+$input-label-font-weight: $font-weight-regular;
+
+//******* secondary
+$input-secondary-background-color: $color-high-medium;
+$input-secondary-border-color: $color-high-medium;

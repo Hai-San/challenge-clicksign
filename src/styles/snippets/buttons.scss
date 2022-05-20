@@ -1,0 +1,67 @@
+
+@use '@/styles/utils/interactions.scss' as *;
+@use '@/styles/tokens/components/buttons.scss' as *;
+@use '@/styles/tokens/speeds.scss' as *;
+
+@mixin button_style (
+	$color: $button-primary-color, 
+	$background: $button-primary-background-color, 
+	$background-hover: $button-primary-background-color-hover, 
+	$border-width: $button-primary-border-width, 
+	$border-color: $button-primary-border-color, 
+	$speed: $speed-base, 
+	$font-size: $button-primary-font-size, 
+	$font-weight: $button-primary-font-weight,
+	$gap: $button-primary-gap
+) {
+	position: relative;
+
+	display: flex;
+	align-items: center;
+
+	gap: $gap;
+
+	color: $color;
+	background-color: $background;
+	border: $border-width solid $border-color;
+	border-radius: 50em;	
+	box-shadow: 0px 3px 3px 0px rgba(0,0,0,.16);
+
+	font-size: $font-size;
+	font-weight: $font-weight;
+
+	transition: background-color ease-in-out $speed;
+
+	cursor: pointer;
+
+	will-change: background-color;
+
+	&:disabled {
+		opacity: .32;
+
+		cursor: not-allowed;
+	}
+
+	@include interaction_full {
+		background-color: $background-hover;
+	}
+}
+
+@mixin button_size ($padding: $button-primary-padding) {
+	padding: $padding;
+}
+
+%button_primary {
+	@include button_style;
+	@include button_size;
+}
+
+%button_secondary {
+	@include button_style(
+		$color: $button-secondary-color, 
+		$background: $button-secondary-background-color, 
+		$background-hover: $button-secondary-background-color-hover, 
+		$border-color: $button-secondary-border-color, 
+	);
+	@include button_size;
+}

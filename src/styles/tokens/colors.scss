@@ -1,5 +1,24 @@
+$color-primary-base: #fa7268;
+$color-primary-light: #ff857c;
+$color-primary-lightest: #fff3f2;
+
+$color-secondary-base: #dbff90;
+$color-secondary-light: #e7fdb8;
+$color-secondary-dark: #90d26c;
+
+$color-high-medium: #e4e7f4;
+$color-high-dark: #e1e1e1;
+$color-high-darkest: #c0c3d2;
+$color-high-light: #f8f9fd;
 $color-high-lightest: #ffffff;
 
 $color-low-darkest: #000000;
+$color-low-base: #2a2d3b;
+$color-low-lightest: #9198af;
 
-$color-low-transparent-base: rgba(0,0,0,.25);
+$color-low-transparent-base: rgba(0,0,0,.4);
+
+$color-info-base: #68a0fa;
+
+$color-text-base: $color-primary-base;
+$color-text-low: $color-low-base;
