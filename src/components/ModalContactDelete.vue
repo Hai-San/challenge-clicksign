@@ -27,7 +27,7 @@ const props = defineProps({
     show: Boolean,
     id: {
         type: Number,
-        default: 0
+        default: null
     }
 })
 

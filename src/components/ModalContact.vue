@@ -7,7 +7,7 @@
         @close="$emit('close')"
     >
         <template #title>
-            Criar novo contato
+            {{ title }}
         </template>
         <template #content>
             <form
@@ -23,7 +23,7 @@
                     >Nome</label>
                     <input
                         id="createContact_inputName"
-                        v-model="newContact.name"
+                        v-model="currentContact.name"
                         class="createContact_input"
                         type="text"
                         required
@@ -36,7 +36,7 @@
                     >E-mail</label>
                     <input
                         id="createContact_inputEmail"
-                        v-model="newContact.email"
+                        v-model="currentContact.email"
                         class="createContact_input"
                         type="email"                            
                     >
@@ -49,7 +49,7 @@
                     <input
                         id="createContact_inputPhone"
                         ref="inputPhone"
-                        v-model="newContact.phone"
+                        v-model="currentContact.phone"
                         class="createContact_input"
                         type="text"
                     >
@@ -71,7 +71,7 @@ const inputPhone = ref(null)
 const createContactForm = ref(null)
 
 const cleanContactObject = {
-    id: 0,
+    id: null,
     name: '',
     email: '',
     phone: '',
@@ -80,13 +80,17 @@ const cleanContactObject = {
         updated: null
     }
 }
-const newContact = reactive({ ...cleanContactObject })
+const currentContact = reactive({ ...cleanContactObject })
 
 const props = defineProps({
     show: Boolean,
+    title: {
+        type: String,
+        default: 'Criar novo contato'
+    },
     id: {
         type: Number,
-        default: 0
+        default: null
     }
 })
 
@@ -97,37 +101,37 @@ const contacts =  computed(() => {
 const emit = defineEmits([ 'close', 'created' ])
 
 const buttonStatus = computed(() => {
-    return (!newContact.name && !newContact.email && !newContact.phone)
+    return (!currentContact.name && !currentContact.email && !currentContact.phone)
 })
 
 function saveContact() {
-    if (newContact.id === 0) {
-        newContact.id = contacts.value.length + 1
-        newContact.date.created = Date.now()
-        contacts.value.unshift(newContact)
+    if (currentContact.id === null) {
+        currentContact.id = contacts.value.length + 1
+        currentContact.date.created = Date.now()
+        contacts.value.unshift(currentContact)
     } else {
         contacts.value.map(contact => {
-            if (newContact.id === contact.id) {
-                contact.name = newContact.name
-                contact.email = newContact.email
-                contact.phone = newContact.phone
+            if (currentContact.id === contact.id) {
+                contact.name = currentContact.name
+                contact.email = currentContact.email
+                contact.phone = currentContact.phone
             }
         })
     }
     
     store.dispatch('contacts/updateContacts', contacts)
-    Object.assign(newContact, cleanContactObject)
+    Object.assign(currentContact, cleanContactObject)
     emit('close')
 }
 
-watch(() => props.id, (id) => {
-    const editContact = contacts.value.filter(contact => contact.id === id)
-
-    if(editContact) {
-        Object.assign(newContact, editContact[0])
-    }
-},{
-    deep: true
+watch(() => props.id, (newId) => {
+    if(newId !== null) {
+        const editContact = contacts.value.filter(contact => contact.id === newId)
+		
+        if(editContact.length > 0) {
+            Object.assign(currentContact, editContact[0])
+        }
+    }   
 })
 
 watchEffect(() => {
