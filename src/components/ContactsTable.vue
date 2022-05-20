@@ -45,7 +45,7 @@
                             <button
                                 class="contactsTable_button -edit"
                                 title="Clique para editar o contato"
-                                @click="editContact(contact)"
+                                @click="editContact(contact.id)"
                             />
                             <button
                                 class="contactsTable_button -delete"
@@ -140,8 +140,8 @@ function loadPatients() {
     store.dispatch('contacts/fetchContacts')
 }
 
-function editContact(contact) {
-    id.value = contact.id
+function editContact(contactId) {
+    id.value = contactId
     show.value = true
 }
 
