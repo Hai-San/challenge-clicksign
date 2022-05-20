@@ -21,12 +21,14 @@ function filterContacts(value) {
 
 <style lang="scss">
 @use '@/styles/snippets/containers.scss' as *;
+@use '@/styles/tokens/spacings.scss' as *;
 
 .pageHome {
 	display: flex;
 	justify-content: center;
 
 	width: 100%;
+	padding-bottom: $spacing-xxxl-vh;
 }
 
 .pageHome_container {
