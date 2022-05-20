@@ -71,7 +71,6 @@ const store = useStore()
 const inputPhone = ref(null)
 
 const cleanContactObject = {
-    id: null,
     name: '',
     email: '',
     phone: '',
@@ -88,7 +87,7 @@ const props = defineProps({
         type: String,
         default: 'Criar novo contato'
     },
-    id: {
+    editIndex: {
         type: Number,
         default: null
     }
@@ -111,14 +110,13 @@ function resetContact() {
 function saveContact() {
     const updatedContacts = [ ...contacts.value ]
 
-    if (currentContact.id === null) {
-        currentContact.id = contacts.value.length + 1
+    if (props.editIndex === null) {
         currentContact.date.created = Date.now()
 
         updatedContacts.unshift({ ...currentContact })
     } else {
-        updatedContacts.map(contact => {
-            if (currentContact.id === contact.id) {
+        updatedContacts.map((contact, index) => {
+            if (index === props.editIndex) {
                 contact.name = currentContact.name
                 contact.email = currentContact.email
                 contact.phone = currentContact.phone
@@ -133,11 +131,11 @@ function saveContact() {
     emit('close')
 }
 
-watch(() => props.id, (newId) => {
-    if (newId !== null) {
-        const editContact = contacts.value.filter(contact => contact.id === newId)
-        if (editContact.length > 0) {
-            cloneObject(editContact[0], currentContact)
+watch(() => props.editIndex, (newEditIndex) => {
+    if (newEditIndex !== null) {
+        const editContact = contacts.value[newEditIndex]
+        if (editContact) {
+            cloneObject(editContact, currentContact)
         }
     } else {
         resetContact()

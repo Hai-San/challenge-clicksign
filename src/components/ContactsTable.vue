@@ -23,7 +23,7 @@
             <tbody>
                 <tr
                     v-for="(contact, index) in contactsFiltered"
-                    :key="`${contact.id}_${contact.name}`"
+                    :key="`${index}_${contact.name}`"
                     :ref="el => listItems[index] = el"
                     :data-created="contact.date.created"
                     :class="{[featuredContactClass]: isFeatured(listItems[index])}"
@@ -46,7 +46,7 @@
                             <button
                                 class="contactsTable_button -edit"
                                 title="Clique para editar o contato"
-                                @click="editContact(contact.id)"
+                                @click="editContact(index)"
                             />
                             <button
                                 class="contactsTable_button -delete"
@@ -64,7 +64,7 @@
         :text="emptyTitle"
     />
     <ModalContact
-        :id="id"
+        :edit-index="indexEdit"
         :show="show"
         :title="`Editar contato`"
         @close="resetModal()"
@@ -97,7 +97,7 @@ const emptyTitle = ref(emptyTitleDefault)
 const listItems = ref([])
 const show = ref(false)
 const showModalDelete = ref(false)
-const id = ref(null)
+const indexEdit = ref(null)
 const indexDelete = ref(null)
 
 const contacts =  computed(() => {
@@ -154,8 +154,8 @@ function loadPatients() {
     store.dispatch('contacts/fetchContacts')
 }
 
-function editContact(contactId) {
-    id.value = contactId
+function editContact(contactIndex) {
+    indexEdit.value = contactIndex
     show.value = true
 }
 
@@ -166,7 +166,7 @@ function deleteContact(contactIndex) {
 
 function resetModal() {
     show.value = false
-    id.value = null
+    indexEdit.value = null
 }
 
 function getItemTimeData(el) {
