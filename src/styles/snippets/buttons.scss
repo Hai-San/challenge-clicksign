@@ -24,7 +24,8 @@
 	color: $color;
 	background-color: $background;
 	border: $border-width solid $border-color;
-	border-radius: 50em;
+	border-radius: 50em;	
+	box-shadow: 0px 3px 3px 0px rgba(0,0,0,.16);
 
 	font-size: $font-size;
 	font-weight: $font-weight;
@@ -43,7 +44,7 @@
 
 	@include interaction_full {
 		background-color: $background-hover;
-	}	
+	}
 }
 
 @mixin button_size ($padding: $button-primary-padding) {
