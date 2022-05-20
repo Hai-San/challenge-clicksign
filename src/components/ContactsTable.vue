@@ -23,9 +23,10 @@
             <tbody>
                 <tr
                     v-for="(contact, index) in contactsFiltered"
-                    :key="index"
-                    :ref="el => (listItems[index] = el)"
+                    :key="`${contact.id}_${contact.name}`"
+                    :ref="el => listItems[index] = el"
                     :data-created="contact.date.created"
+                    :class="{[featuredContactClass]: isFeatured(listItems[index])}"
                 >
                     <td class="contactsTable_thumbnail_col">
                         <div
@@ -76,7 +77,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, watchEffect } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import masks from '@/utils/masks'
 import randomColor from '@/utils/randomColor'
@@ -126,27 +127,22 @@ watch(contactsFiltered, () => {
     }
 }, { deep: true })
 
-watchEffect(() =>  {		
-    checkFeatured(listItems.value)
-})
-
-function checkFeatured(elements) {
-    elements.forEach(el => {
-        if(el){
-            const timeData = getItemTimeData(el)
-            if(timeData.haveTimeLeft && !el.classList.contains(featuredContactClass)) {       
-                el.classList.add(featuredContactClass)               
-                waitTimeout(el, timeData.timer)
-            }
-        }        
-    })
+function isFeatured(el) {
+    if(el){
+        const timeData = getItemTimeData(el)
+        if(timeData.haveTimeLeft && !el.classList.contains(featuredContactClass)) {                          
+            setFeaturedTimeout(el, timeData.timer)
+            return true
+        }
+        return false
+    }    
 }
 
-function waitTimeout(el, timer) {   
+function setFeaturedTimeout(el, timer) {   
     setTimeout(function() {
         const timeData = getItemTimeData(el)
         if(timeData.haveTimeLeft) {
-            waitTimeout(el, timeData.timer)
+            setFeaturedTimeout(el, timeData.timer)
         } else {
             el.classList.remove(featuredContactClass)
         }
