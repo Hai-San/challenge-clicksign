@@ -137,7 +137,6 @@ watch(() => props.id, (newId) => {
 })
 
 watchEffect(() => {
-    console.dir('oiiiiiiiiii')
     if (inputPhone.value) {
         masks.inputPhone(inputPhone.value)
     }
