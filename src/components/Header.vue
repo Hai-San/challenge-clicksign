@@ -4,11 +4,12 @@
             <a
                 class="headerLogo_link"
                 href="/"
+                title="Ubook - Voltar para página inicial"
             >
                 <img
+                    aria-hidden="true"
                     class="headerLogo_img"
                     src="@assets/logo.svg"
-                    alt="Ubook"
                 >
             </a>
 
@@ -21,7 +22,7 @@
                 >Buscar um contato</label>
                 <input
                     id="contactSearch_input"
-                    v-model="contactSearchValue"
+                    v-model="searchModel"
                     class="contactSearch_input"
                     type="text"
                     placeholder="Buscar..."
@@ -32,10 +33,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import ButtonCreateContact from '@/components/ButtonCreateContact.vue'
 
-const contactSearchValue = ref('')
+const emit = defineEmits([ 'search' ])
+const searchModel = ref('')
+
+watch(searchModel, () => {
+    emit('search', searchModel.value)
+})
 </script>
 
 <style lang="scss">

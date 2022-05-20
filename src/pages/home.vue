@@ -1,15 +1,22 @@
 <template>
-    <Header />
+    <Header @search="filterContacts($event)" />
     <main class="pageHome">
         <div class="pageHome_container">
-            <ContactsTable />
+            <ContactsTable :search-value="searchValue" />
         </div>
     </main>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import Header from '@/components/Header.vue'
 import ContactsTable from '@/components/ContactsTable.vue'
+
+const searchValue = ref('')
+
+function filterContacts(value) {
+    searchValue.value = value
+}
 </script>
 
 <style lang="scss">

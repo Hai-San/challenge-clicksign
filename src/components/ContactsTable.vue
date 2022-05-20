@@ -22,7 +22,7 @@
 
             <tbody>
                 <tr
-                    v-for="(contact, index) in contacts"
+                    v-for="(contact, index) in contactsFiltered"
                     :key="index"
                     ref="listItems"
                     :data-created="contact.date.created"
@@ -76,7 +76,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, watchEffect } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import masks from '@/utils/masks'
 import randomColor from '@/utils/randomColor'
@@ -95,6 +95,22 @@ const id = ref(null)
 const contacts =  computed(() => {
     return store.state.contacts.all
 })
+
+const props = defineProps({
+    searchValue: {
+        type: String,
+        default: '',
+        required: true
+    }
+})
+
+const contactsFiltered = computed(() => {
+    const filteredSearchValue = props.searchValue.toLowerCase()
+
+    return contacts.value.filter(contact => {
+        return contact.name.toLowerCase().includes(filteredSearchValue)
+    })
+}) 
 
 watch(contacts, () => {
     checkFeatured()
