@@ -96,6 +96,7 @@ const show = ref(false)
 const showModalDelete = ref(false)
 const id = ref(null)
 const idDelete = ref(null)
+const featuredList = ref([])
 
 const contacts =  computed(() => {
     return store.state.contacts.all
@@ -135,16 +136,24 @@ function checkFeatured(elements) {
         if(secondsPassed < 10) {
             if(el && !el.classList.contains(featuredContactClass)) {
                 el.classList.add(featuredContactClass)	
-                removeFeatured(el, secondsPassed)
+                const timer = 10000 - (secondsPassed * 1000)
+                waitTimeout(el, timer, index)
             }			
         }
     })
 }
 
-function removeFeatured(el, secondsPassed) {
+function waitTimeout(el, timer, index) {   
     setTimeout(function() {
-        el.classList.remove(featuredContactClass)
-    },10000 - (secondsPassed * 1000))	
+        const secondsPassed = getSecondsPassed(el.dataset.created)
+
+        if(secondsPassed < 10) {
+            const timer = 10000 - (secondsPassed * 1000)
+            waitTimeout(el, timer, index)		
+        } else {
+            el.classList.remove(featuredContactClass)
+        }
+    }, timer)
 }
 
 function loadPatients() {
