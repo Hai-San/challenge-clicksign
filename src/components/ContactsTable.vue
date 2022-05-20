@@ -50,7 +50,7 @@
                             <button
                                 class="contactsTable_button -delete"
                                 title="Clique para excluir o contato"
-                                @click="deleteContact(contact)"
+                                @click="deleteContact(contact.id)"
                             />
                         </div>
                     </td>
@@ -67,6 +67,11 @@
         :show="show"
         @close="show = false"
     />
+    <ModalContactDelete
+        :id="id"
+        :show="showModalDelete"
+        @close="showModalDelete = false"
+    />
 </template>
 
 <script setup>
@@ -75,6 +80,7 @@ import { useStore } from 'vuex'
 import masks from '@/utils/masks'
 import randomColor from '@/utils/randomColor'
 import ModalContact from '@/components/ModalContact.vue'
+import ModalContactDelete from '@/components/ModalContactDelete.vue'
 
 import EmptyList from './EmptyList.vue'
 
@@ -82,6 +88,7 @@ const featuredContactClass = 'is_featured'
 const listItems = ref([])
 const store = useStore()
 const show = ref(false)
+const showModalDelete = ref(false)
 const id = ref(0)
 
 const contacts =  computed(() => {
@@ -98,7 +105,7 @@ function checkFeatured() {
         if(secondsPassed < 10) {
             const el = listItems.value[index]
 
-            if(!el.classList.contains(featuredContactClass)) {
+            if(el && !el.classList.contains(featuredContactClass)) {
                 el.classList.add(featuredContactClass)	
                 removeFeatured(el, secondsPassed)
             }			
@@ -119,6 +126,11 @@ function loadPatients() {
 function editContact(contact) {
     id.value = contact.id
     show.value = true
+}
+
+function deleteContact(contactId) {
+    id.value = contactId
+    showModalDelete.value = true
 }
 
 function getSecondsPassed(date) {
