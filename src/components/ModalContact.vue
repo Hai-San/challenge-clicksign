@@ -80,7 +80,7 @@ const cleanContactObject = {
         updated: null
     }
 }
-const currentContact = reactive(cloneObject(cleanContactObject))
+let currentContact = reactive(cleanContactObject)
 
 const props = defineProps({
     show: Boolean,
@@ -104,6 +104,10 @@ const buttonStatus = computed(() => {
     return (!currentContact.name && !currentContact.email && !currentContact.phone)
 })
 
+function resetContact() {
+    currentContact = reactive(cleanContactObject)
+}
+
 function saveContact() {
     const updatedContacts = [ ...contacts.value ]
 
@@ -124,7 +128,7 @@ function saveContact() {
     }
 
     store.dispatch('contacts/updateContacts', updatedContacts)
-    cloneObject(cleanContactObject, currentContact)
+    resetContact()
     
     emit('close')
 }
@@ -135,6 +139,8 @@ watch(() => props.id, (newId) => {
         if (editContact.length > 0) {
             cloneObject(editContact[0], currentContact)
         }
+    } else {
+        resetContact()
     }
 })
 

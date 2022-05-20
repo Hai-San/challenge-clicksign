@@ -69,7 +69,7 @@
         @close="resetModal()"
     />
     <ModalContactDelete
-        :id="id"
+        :id="idDelete"
         :show="showModalDelete"
         @close="showModalDelete = false"
     />
@@ -91,6 +91,7 @@ const store = useStore()
 const show = ref(false)
 const showModalDelete = ref(false)
 const id = ref(null)
+const idDelete = ref(null)
 
 const contacts =  computed(() => {
     return store.state.contacts.all
@@ -146,7 +147,7 @@ function editContact(contactId) {
 }
 
 function deleteContact(contactId) {
-    id.value = contactId
+    idDelete.value = contactId
     showModalDelete.value = true
 }
 

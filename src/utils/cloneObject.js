@@ -1,3 +1,3 @@
-export default function cloneObject(obj, oldObject = {}) {
-    return Object.assign(oldObject, JSON.parse(JSON.stringify(obj)))
+export default function cloneObject(objToCopy, objBase = {}) {
+    return Object.assign(objBase, JSON.parse(JSON.stringify(objToCopy)))
 }
