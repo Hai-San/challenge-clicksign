@@ -93,6 +93,7 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
+@use '@/styles/tokens/font/weights.scss' as *;
 @use '@/styles/snippets/fonts.scss' as *;
 @use '@/styles/tokens/colors.scss' as *;
 @use '@/styles/utils/interactions.scss' as *;
@@ -157,11 +158,13 @@ onUnmounted(() => {
 
 	color: $color-text-low;
 	border-bottom: $border-width-small solid $border-color-high-darkest;
+
+	font-weight: $font-weight-regular;
 }
 
 .modal_content {
 	width: 100%;
-	padding: $spacing-md-vh var(--padding);
+	padding: $spacing-md-vh;
 }
 
 .modal_buttons {
@@ -180,7 +183,15 @@ onUnmounted(() => {
 
 	color: $color-text-base;
 
+	transition: opacity ease-in-out $speed-base;
+
 	cursor: pointer;
+
+	will-change: opacity;
+
+	@include interaction_full {
+		opacity: .75;
+	}
 }
 
 .modal_button_confirm {
