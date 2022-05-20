@@ -1,6 +1,6 @@
 <template>
     <div
-        v-if="contacts.length"
+        v-if="contactsFiltered.length > 0"
         class="contactsTable_container"
     >
         <table class="contactsTable">
@@ -60,7 +60,7 @@
     </div>
     <EmptyList
         v-else
-        :text="`Nenhum contato foi criado ainda`"
+        :text="emptyTitle"
     />
     <ModalContact
         :id="id"
@@ -85,7 +85,11 @@ import ModalContactDelete from '@/components/ModalContactDelete.vue'
 
 import EmptyList from './EmptyList.vue'
 
+const emptyTitleDefault = 'Nenhum contato foi criado ainda.'
+const emptyTitleFilter = 'Nenhum contato foi encontrado!'
+
 const featuredContactClass = 'is_featured'
+const emptyTitle = ref(emptyTitleDefault)
 const listItems = ref([])
 const store = useStore()
 const show = ref(false)
@@ -112,6 +116,14 @@ const contactsFiltered = computed(() => {
         return contact.name.toLowerCase().includes(filteredSearchValue)
     })
 }) 
+
+watch(contactsFiltered, () => {
+    if (contactsFiltered.value.length <= 0 && contacts.value.length > 0) {
+        emptyTitle.value = emptyTitleFilter
+    } else {
+        emptyTitle.value = emptyTitleDefault
+    }
+}, { deep: true })
 
 watch(contacts, () => {
     checkFeatured()
