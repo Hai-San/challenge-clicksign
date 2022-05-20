@@ -39,7 +39,7 @@ const emit = defineEmits([ 'close' ])
 
 function deleteContact() {
     contacts.value.splice(contacts.value.findIndex(contact => contact.id === props.id), 1)    
-    store.dispatch('contacts/updateContacts', contacts)
+    store.dispatch('contacts/updateContacts', contacts.value)
     emit('close')
 }
 </script>
