@@ -96,7 +96,7 @@ const show = ref(false)
 const showModalDelete = ref(false)
 const id = ref(null)
 const idDelete = ref(null)
-const featuredList = ref([])
+const featuredItemTimeoutMs = 10000
 
 const contacts =  computed(() => {
     return store.state.contacts.all
@@ -126,30 +126,27 @@ watch(contactsFiltered, () => {
     }
 }, { deep: true })
 
-watchEffect(() =>  {
+watchEffect(() =>  {		
     checkFeatured(listItems.value)
 })
 
 function checkFeatured(elements) {
-    elements.forEach((el, index) => {
-        const secondsPassed = getSecondsPassed(el.dataset.created)
-        if(secondsPassed < 10) {
-            if(el && !el.classList.contains(featuredContactClass)) {
-                el.classList.add(featuredContactClass)	
-                const timer = 10000 - (secondsPassed * 1000)
-                waitTimeout(el, timer, index)
-            }			
-        }
+    elements.forEach(el => {
+        if(el){
+            const timeData = getItemTimeData(el)
+            if(timeData.haveTimeLeft && !el.classList.contains(featuredContactClass)) {       
+                el.classList.add(featuredContactClass)               
+                waitTimeout(el, timeData.timer)
+            }
+        }        
     })
 }
 
-function waitTimeout(el, timer, index) {   
+function waitTimeout(el, timer) {   
     setTimeout(function() {
-        const secondsPassed = getSecondsPassed(el.dataset.created)
-
-        if(secondsPassed < 10) {
-            const timer = 10000 - (secondsPassed * 1000)
-            waitTimeout(el, timer, index)		
+        const timeData = getItemTimeData(el)
+        if(timeData.haveTimeLeft) {
+            waitTimeout(el, timeData.timer)
         } else {
             el.classList.remove(featuredContactClass)
         }
@@ -173,6 +170,17 @@ function deleteContact(contactId) {
 function resetModal() {
     show.value = false
     id.value = null
+}
+
+function getItemTimeData(el) {
+    const passed = getSecondsPassed(el.dataset.created) 
+    const haveTimeLeft = passed < (featuredItemTimeoutMs / 1000)
+    const timer = featuredItemTimeoutMs - (passed * 1000)
+	
+    return {
+        haveTimeLeft,
+        timer
+    }
 }
 
 function getSecondsPassed(date) {
