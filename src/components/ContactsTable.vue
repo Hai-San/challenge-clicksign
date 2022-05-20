@@ -88,16 +88,17 @@ import EmptyList from './EmptyList.vue'
 
 const emptyTitleDefault = 'Nenhum contato foi criado ainda.'
 const emptyTitleFilter = 'Nenhum contato foi encontrado!'
-
 const featuredContactClass = 'is_featured'
+const featuredItemTimeoutMs = 10000
+
+const store = useStore()
+
 const emptyTitle = ref(emptyTitleDefault)
 const listItems = ref([])
-const store = useStore()
 const show = ref(false)
 const showModalDelete = ref(false)
 const id = ref(null)
 const idDelete = ref(null)
-const featuredItemTimeoutMs = 10000
 
 const contacts =  computed(() => {
     return store.state.contacts.all
