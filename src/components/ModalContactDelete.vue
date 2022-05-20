@@ -25,7 +25,7 @@ const store = useStore()
 
 const props = defineProps({
     show: Boolean,
-    id: {
+    index: {
         type: Number,
         default: null
     }
@@ -38,7 +38,7 @@ const contacts =  computed(() => {
 const emit = defineEmits([ 'close' ])
 
 function deleteContact() {
-    contacts.value.splice(contacts.value.findIndex(contact => contact.id === props.id), 1)    
+    contacts.value.splice(props.index, 1)    
     store.dispatch('contacts/updateContacts', contacts.value)
     emit('close')
 }

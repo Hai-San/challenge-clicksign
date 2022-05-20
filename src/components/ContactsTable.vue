@@ -51,7 +51,7 @@
                             <button
                                 class="contactsTable_button -delete"
                                 title="Clique para excluir o contato"
-                                @click="deleteContact(contact.id)"
+                                @click="deleteContact(index)"
                             />
                         </div>
                     </td>
@@ -70,7 +70,7 @@
         @close="resetModal()"
     />
     <ModalContactDelete
-        :id="idDelete"
+        :index="indexDelete"
         :show="showModalDelete"
         @close="showModalDelete = false"
     />
@@ -98,7 +98,7 @@ const listItems = ref([])
 const show = ref(false)
 const showModalDelete = ref(false)
 const id = ref(null)
-const idDelete = ref(null)
+const indexDelete = ref(null)
 
 const contacts =  computed(() => {
     return store.state.contacts.all
@@ -159,8 +159,8 @@ function editContact(contactId) {
     show.value = true
 }
 
-function deleteContact(contactId) {
-    idDelete.value = contactId
+function deleteContact(contactIndex) {
+    indexDelete.value = contactIndex
     showModalDelete.value = true
 }
 
