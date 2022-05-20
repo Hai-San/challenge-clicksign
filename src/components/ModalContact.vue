@@ -118,6 +118,7 @@ function saveContact() {
                 contact.name = currentContact.name
                 contact.email = currentContact.email
                 contact.phone = currentContact.phone
+                contact.date.updated = Date.now()
             }
         })
     }
