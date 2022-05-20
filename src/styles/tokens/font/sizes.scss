@@ -1,2 +1,15 @@
+@use '@/styles/tools/convertPxToRem' as *;
+
 $font-size-xxs: 14;
 $font-size-xs: 16;
+
+$font-size-xs-px: #{$font-size-xs}px;
+
+$font-size-xxs-rem: pxrem(
+	$px: $font-size-xxs,
+	$sufix: true
+);
+$font-size-xs-rem: pxrem(
+	$px: $font-size-xs,
+	$sufix: true
+);

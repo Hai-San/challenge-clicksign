@@ -3,7 +3,6 @@
 @use '@/styles/tokens/spacings' as *;
 @use '@/styles/tokens/font/weights.scss' as *;
 @use '@/styles/tokens/font/sizes.scss' as *;
-@use '@/styles/tools/convertPxToRem.scss' as *;
 
 $field-gap: $spacing-nano-px;
 
@@ -23,10 +22,10 @@ $input-icon-spacing: $spacing-xxxs-px;
 $input-padding: $spacing-xxxs-px;
 
 $input-font-weight: $font-weight-regular;
-$input-font-size: #{pxrem($font-size-xs)}rem;
+$input-font-size: $font-size-xs-rem;
 
 $input-label-color: $color-low-base;
-$input-label-font-size: #{pxrem($font-size-xxs)}rem;
+$input-label-font-size: $font-size-xxs-rem;
 $input-label-font-weight: $font-weight-regular;
 
 //******* secondary

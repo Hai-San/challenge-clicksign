@@ -1,5 +1,11 @@
 @use 'sass:math';
 
-@function pxrem ($pixels, $context: 16) {
-	@return math.div($pixels, $context);
+@function pxrem ($px, $context: 16, $sufix: false) {
+	$fontRem: math.div($px, $context);
+
+	@if $sufix {
+		$fontRem: #{$fontRem}rem;
+	}
+
+	@return $fontRem
 }

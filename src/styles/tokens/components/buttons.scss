@@ -3,7 +3,6 @@
 @use '@/styles/tokens/spacings' as *;
 @use '@/styles/tokens/font/weights.scss' as *;
 @use '@/styles/tokens/font/sizes.scss' as *;
-@use '@/styles/tools/convertPxToRem.scss' as *;
 
 $button-primary-color: $color-high-lightest;
 $button-primary-background-color: $color-primary-base;
@@ -14,7 +13,7 @@ $button-primary-border-width: $border-width-small;
 $button-primary-padding: $spacing-xxxs-px $spacing-md-px;
 $button-primary-gap: $spacing-xxxs-px;
 $button-primary-font-weight: $font-weight-medium;
-$button-primary-font-size: #{pxrem($font-size-xxs)}rem;
+$button-primary-font-size: $font-size-xxs-rem;
 
 //********* Secondary
 $button-secondary-color: $color-primary-base;

@@ -163,6 +163,7 @@ loadPatients()
 </script>
 
 <style lang="scss">
+@use '@/styles/tokens/font/sizes.scss' as *;
 @use '@/styles/tokens/spacings.scss' as *;
 @use '@/styles/tokens/speeds.scss' as *;
 @use '@/styles/tokens/colors.scss' as *;
@@ -194,6 +195,9 @@ loadPatients()
 
 	color: $color-high-lightest;
 	border-radius: 50%;
+
+	font-size: $font-size-xs-px;
+	text-transform: uppercase;
 }
 
 .contactsTable_actions {
@@ -234,13 +238,5 @@ loadPatients()
 	@include interaction_full {
 		background-color: $color-low-base;
 	}
-}
-
-.list-enter-active {
-	transition: all 5s;
-}
-
-.list-enter {
-	background: yellow;
 }
 </style>
