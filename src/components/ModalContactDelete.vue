@@ -1,21 +1,19 @@
 <template>
-    <Teleport to="body">
-        <modal
-            :show="show"
-            :submit-button-text="`Excluir`"
-            @close="$emit('close')"
-            @modal-submit="deleteContact()"
-        >
-            <template #title>
-                Excluir contato
-            </template>
-            <template #content>
-                <p class="deleteContact_modalContent">
-                    Deseja realmente excluir o contato?
-                </p>
-            </template>
-        </modal>
-    </Teleport>
+    <modal
+        :show="show"
+        :submit-button-text="`Excluir`"
+        @close="$emit('close')"
+        @modal-submit="deleteContact()"
+    >
+        <template #title>
+            Excluir contato
+        </template>
+        <template #content>
+            <p class="deleteContact_modalContent">
+                Deseja realmente excluir o contato?
+            </p>
+        </template>
+    </modal>
 </template>
 
 <script setup>
@@ -48,9 +46,11 @@ function deleteContact() {
 
 <style lang="scss">
 @use '@/styles/snippets/fonts.scss' as *;
+@use '@/styles/tokens/spacings.scss' as *;
 
 .deleteContact_modalContent {
 	@extend %font_xxs_regular;
+	padding-bottom: $spacing-lg-px;
 
 	text-align: left;
 }

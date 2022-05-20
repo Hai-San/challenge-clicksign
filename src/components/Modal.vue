@@ -1,47 +1,49 @@
 <template>
-    <Transition name="modal">
-        <div
-            v-if="show"
-            class="modal"
-            aria-modal="true"
-            role="dialog"
-        >
-            <div class="modal_container">
-                <div
-                    class="modal_background"
-                    @click="close()"
-                />
-                <div
-                    class="modal_box"
-                >
-                    <h2 class="modal_title">
-                        <slot name="title" />
-                    </h2>
-                    <div class="modal_content">
-                        <slot name="content" />
-                    </div>
-                    <div class="modal_buttons">
-                        <button
-                            class="modal_button_close"
-                            type="button"
-                            @click="close()"
-                        >
-                            Cancelar
-                        </button>
-                        <button
-                            class="modal_button_confirm"
-                            :disabled="submitButtonStatus"
-                            :form="form"
-                            type="submit"
-                            @click="modalSubmit()"
-                        >
-                            {{ submitButtonText }}
-                        </button>
+    <Teleport to="body">
+        <Transition name="modal">
+            <div
+                v-if="show"
+                class="modal"
+                aria-modal="true"
+                role="dialog"
+            >
+                <div class="modal_container">
+                    <div
+                        class="modal_background"
+                        @click="close()"
+                    />
+                    <div
+                        class="modal_box"
+                    >
+                        <h2 class="modal_title">
+                            <slot name="title" />
+                        </h2>
+                        <div class="modal_content">
+                            <slot name="content" />
+                        </div>
+                        <div class="modal_buttons">
+                            <button
+                                class="modal_button_close"
+                                type="button"
+                                @click="close()"
+                            >
+                                Cancelar
+                            </button>
+                            <button
+                                class="modal_button_confirm"
+                                :disabled="submitButtonStatus"
+                                :form="form"
+                                type="submit"
+                                @click="modalSubmit()"
+                            >
+                                {{ submitButtonText }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </Transition>
+        </Transition>
+    </Teleport>
 </template>
 
 <script setup>

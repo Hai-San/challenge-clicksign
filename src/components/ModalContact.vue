@@ -1,72 +1,73 @@
 <template>
-    <Teleport to="body">
-        <modal
-            :show="show"
-            :form="`createContactForm`"
-            :submit-button-text="`Salvar`"
-            :submit-button-status="buttonStatus"
-            @close="$emit('close')"
-        >
-            <template #title>
-                Criar novo contato
-            </template>
-            <template #content>
-                <form
-                    id="createContactForm"
-                    ref="createContactForm"
-                    class="createContact_modalContent"
-                    @submit.prevent="saveContact()"
-                >
-                    <div class="createContact_field">
-                        <label
-                            class="createContact_label"
-                            for="createContact_inputName"
-                        >Nome</label>
-                        <input
-                            id="createContact_inputName"
-                            v-model="newContact.name"
-                            class="createContact_input"
-                            type="text"
-                            required
-                        >
-                    </div>
-                    <div class="createContact_field">
-                        <label
-                            class="createContact_label"
-                            for="createContact_inputEmail"
-                        >E-mail</label>
-                        <input
-                            id="createContact_inputEmail"
-                            v-model="newContact.email"
-                            class="createContact_input"
-                            type="email"
-                            required
-                        >
-                    </div>
-                    <div class="createContact_field -small">
-                        <label
-                            class="createContact_label"
-                            for="createContact_inputPhone"
-                        >Telefone</label>
-                        <input
-                            id="createContact_inputPhone"
-                            v-model="newContact.phone"
-                            class="createContact_input"
-                            type="text"
-                        >
-                    </div>
-                </form>
-            </template>
-        </modal>
-    </Teleport>
+    <modal
+        :show="show"
+        :form="`createContactForm`"
+        :submit-button-text="`Salvar`"
+        :submit-button-status="buttonStatus"
+        @close="$emit('close')"
+    >
+        <template #title>
+            Criar novo contato
+        </template>
+        <template #content>
+            <form
+                id="createContactForm"
+                ref="createContactForm"
+                class="createContact_modalContent"
+                @submit.prevent="saveContact()"
+            >
+                <div class="createContact_field">
+                    <label
+                        class="createContact_label"
+                        for="createContact_inputName"
+                    >Nome</label>
+                    <input
+                        id="createContact_inputName"
+                        v-model="newContact.name"
+                        class="createContact_input"
+                        type="text"
+                        required
+                    >
+                </div>
+                <div class="createContact_field">
+                    <label
+                        class="createContact_label"
+                        for="createContact_inputEmail"
+                    >E-mail</label>
+                    <input
+                        id="createContact_inputEmail"
+                        v-model="newContact.email"
+                        class="createContact_input"
+                        type="email"                            
+                    >
+                </div>
+                <div class="createContact_field -small">
+                    <label
+                        class="createContact_label"
+                        for="createContact_inputPhone"
+                    >Telefone</label>
+                    <input
+                        id="createContact_inputPhone"
+                        ref="inputPhone"
+                        v-model="newContact.phone"
+                        class="createContact_input"
+                        type="text"
+                    >
+                </div>
+            </form>
+        </template>
+    </modal>
 </template>
 
 <script setup>
-import { ref, reactive, computed, watch } from 'vue'
+import { ref, reactive, computed, watch, onMounted } from 'vue'
 import { useStore } from 'vuex'
+import masks from '@/utils/masks'
+
 import Modal from './Modal.vue'
 
 const store = useStore()
+const inputPhone = ref(null)
 const createContactForm = ref(null)
 
 const cleanContactObject = {
@@ -110,7 +111,6 @@ watch(() => props.id, (id) => {
 })
 
 function saveContact() {
-    console.log('save new')
     if (newContact.id === 0) {
         newContact.id = contacts.value.length + 1
         newContact.date.created = Date.now()
@@ -129,6 +129,11 @@ function saveContact() {
     Object.assign(newContact, cleanContactObject)
     emit('close')
 }
+
+onMounted(() => {
+    console.log('oi')
+    masks.inputPhone(inputPhone)
+})
 </script>
 
 <style lang="scss">
