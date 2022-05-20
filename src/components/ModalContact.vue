@@ -80,7 +80,7 @@ const cleanContactObject = {
         updated: null
     }
 }
-let currentContact = reactive(cleanContactObject)
+const currentContact = reactive(cloneObject(cleanContactObject))
 
 const props = defineProps({
     show: Boolean,
@@ -105,7 +105,7 @@ const buttonStatus = computed(() => {
 })
 
 function resetContact() {
-    currentContact = reactive(cleanContactObject)
+    cloneObject(cleanContactObject, currentContact)
 }
 
 function saveContact() {
