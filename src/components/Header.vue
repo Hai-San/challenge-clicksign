@@ -39,6 +39,7 @@ const contactSearchValue = ref('')
 </script>
 
 <style lang="scss">
+@use '@/styles/tools/convertPxToVh.scss' as *;
 @use '@/styles/snippets/fields.scss' as *;
 @use '@/styles/snippets/containers.scss' as *;
 @use '@/styles/snippets/layout.scss' as *;
@@ -57,21 +58,23 @@ const contactSearchValue = ref('')
 	@extend %container;
 	align-items: center;
 	justify-content: space-between;
+	flex-wrap: wrap;
+
+	gap:  $spacing-xl-vh;
+}
+
+.headerLogo_link {
+	margin-right: $spacing-xl-vh;
 }
 
 .headerLogo_img {
-	width: 148px;
-}
-
-.header_button {
-	margin-left: $spacing-xl-vh;
+	width: pxvh(148);
+	max-width: 148px;
 }
 
 .contactSearch_field {
 	display: flex;
 	flex-grow: 1;
-
-	max-width: 72%;
 }
 
 .contactSearch_label {

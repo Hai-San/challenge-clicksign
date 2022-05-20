@@ -159,6 +159,8 @@ loadPatients()
 
 .contactsTable {
 	@extend %table;
+
+	min-width: 568px;
 }
 
 .contactsTable_thumbnail_col {
