@@ -22,8 +22,9 @@
 
             <tbody>
                 <tr
-                    v-for="contact in contacts"
-                    :key="contact.id"
+                    v-for="(contact, index) in contacts"
+                    :key="index"
+                    :data-created="contact.date.created"
                 >
                     <td class="contactsTable_thumbnail_col">
                         <div
@@ -68,7 +69,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import masks from '@/utils/masks'
 import randomColor from '@/utils/randomColor'
@@ -76,13 +77,34 @@ import ModalContact from '@/components/ModalContact.vue'
 
 import EmptyList from './EmptyList.vue'
 
+const featuredContactClass = 'is_featured'
 const store = useStore()
 const show = ref(false)
 const id = ref(0)
 
 const contacts =  computed(() => {
-    return store.state.contacts.all
+    const updatedContacts = store.state.contacts.all
+    
+    return updatedContacts
 })
+
+// const secondsPassed = getSecondsPassed(el.dataset.created)
+
+//         if(secondsPassed < 10) {
+//             console.log('foiaaaaaaaaaaaaaa')
+            
+//             if(!el.classList.contains(featuredContactClass)) {
+//                 el.dataset.created = null
+//                 el.classList.add(featuredContactClass)	
+//                 removeFeatured(el)
+//             }
+//         }
+// function removeFeatured(el) {
+//     setTimeout(function() {
+//         console.log('foi')
+//         el.classList.remove(featuredContactClass)
+//     },10000)	
+// }
 
 function loadPatients() {
     store.dispatch('contacts/fetchContacts')
@@ -91,6 +113,10 @@ function loadPatients() {
 function editContact(contact) {
     id.value = contact.id
     show.value = true
+}
+
+function getSecondsPassed(date) {
+    return Math.abs((Date.now() - date) / 1000)
 }
 
 loadPatients()
@@ -166,5 +192,13 @@ loadPatients()
 	@include interaction_full {
 		background-color: $color-low-base;
 	}
+}
+
+.list-enter-active {
+	transition: all 5s;
+}
+
+.list-enter {
+	background: yellow;
 }
 </style>

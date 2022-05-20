@@ -33,7 +33,7 @@
                             :disabled="submitButtonStatus"
                             :form="form"
                             type="submit"
-                            @click="submit()"
+                            @click="modalSubmit()"
                         >
                             {{ submitButtonText }}
                         </button>
@@ -47,7 +47,7 @@
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
 
-const emit = defineEmits([ 'close', 'submit' ])
+const emit = defineEmits([ 'close', 'modal-submit' ])
 const props = defineProps({
     show: Boolean,
     form: {
@@ -71,8 +71,8 @@ function close() {
     emit('close')
 }
 
-function submit() {
-    emit('submit')
+function modalSubmit() {
+    emit('modal-submit')
 }
 
 function handleKeyup(event) {

@@ -74,7 +74,10 @@ const cleanContactObject = {
     name: '',
     email: '',
     phone: '',
-    registerDate: ''
+    date:  {
+        created: null,
+        updated: null
+    }
 }
 const newContact = reactive({ ...cleanContactObject })
 
@@ -90,7 +93,7 @@ const contacts =  computed(() => {
     return store.state.contacts.all
 })
 
-const emit = defineEmits([ 'close' ])
+const emit = defineEmits([ 'close', 'created' ])
 
 const buttonStatus = computed(() => {
     return (!newContact.name && !newContact.email && !newContact.phone)
@@ -107,9 +110,10 @@ watch(() => props.id, (id) => {
 })
 
 function saveContact() {
+    console.log('save new')
     if (newContact.id === 0) {
         newContact.id = contacts.value.length + 1
-        newContact.registerDate = Date.now()
+        newContact.date.created = Date.now()
         contacts.value.unshift(newContact)
     } else {
         contacts.value.map(contact => {
