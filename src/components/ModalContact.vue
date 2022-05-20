@@ -51,7 +51,7 @@
                         v-model="currentContact.phone"
                         class="createContact_input"
                         type="text"
-                        autocomplete="createContact_inputPhone"
+                        autocomplete="off"
                     >
                 </div>
             </form>
@@ -62,6 +62,7 @@
 <script setup>
 import { ref, reactive, computed, watch, watchEffect } from 'vue'
 import { useStore } from 'vuex'
+import cloneObject from '@/utils/cloneObject'
 import masks from '@/utils/masks'
 
 import Modal from './Modal.vue'
@@ -79,7 +80,7 @@ const cleanContactObject = {
         updated: null
     }
 }
-const currentContact = reactive({ ...cleanContactObject })
+const currentContact = reactive(cloneObject(cleanContactObject))
 
 const props = defineProps({
     show: Boolean,
@@ -122,16 +123,16 @@ function saveContact() {
     }
 
     store.dispatch('contacts/updateContacts', updatedContacts)
-    Object.assign(currentContact, cleanContactObject)
+    cloneObject(cleanContactObject, currentContact)
+    
     emit('close')
 }
 
 watch(() => props.id, (newId) => {
     if (newId !== null) {
         const editContact = contacts.value.filter(contact => contact.id === newId)
-
         if (editContact.length > 0) {
-            Object.assign(currentContact, editContact[0])
+            cloneObject(editContact[0], currentContact)
         }
     }
 })
