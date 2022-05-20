@@ -24,6 +24,7 @@
                 <tr
                     v-for="(contact, index) in contacts"
                     :key="index"
+                    ref="listItems"
                     :data-created="contact.date.created"
                 >
                     <td class="contactsTable_thumbnail_col">
@@ -78,33 +79,38 @@ import ModalContact from '@/components/ModalContact.vue'
 import EmptyList from './EmptyList.vue'
 
 const featuredContactClass = 'is_featured'
+const listItems = ref([])
 const store = useStore()
 const show = ref(false)
 const id = ref(0)
 
 const contacts =  computed(() => {
-    const updatedContacts = store.state.contacts.all
-    
-    return updatedContacts
+    return store.state.contacts.all
 })
 
-// const secondsPassed = getSecondsPassed(el.dataset.created)
+watch(contacts, (newItems) => {
+    checkFeatured()
+}, { deep: true })
 
-//         if(secondsPassed < 10) {
-//             console.log('foiaaaaaaaaaaaaaa')
-            
-//             if(!el.classList.contains(featuredContactClass)) {
-//                 el.dataset.created = null
-//                 el.classList.add(featuredContactClass)	
-//                 removeFeatured(el)
-//             }
-//         }
-// function removeFeatured(el) {
-//     setTimeout(function() {
-//         console.log('foi')
-//         el.classList.remove(featuredContactClass)
-//     },10000)	
-// }
+function checkFeatured() {
+    contacts.value.forEach((contact, index) => {
+        const secondsPassed = getSecondsPassed(contact.date.created)
+        if(secondsPassed < 10) {
+            const el = listItems.value[index]
+
+            if(!el.classList.contains(featuredContactClass)) {
+                el.classList.add(featuredContactClass)	
+                removeFeatured(el, secondsPassed)
+            }			
+        }
+    })
+}
+
+function removeFeatured(el, secondsPassed) {
+    setTimeout(function() {
+        el.classList.remove(featuredContactClass)
+    },10000 - (secondsPassed * 1000))	
+}
 
 function loadPatients() {
     store.dispatch('contacts/fetchContacts')
