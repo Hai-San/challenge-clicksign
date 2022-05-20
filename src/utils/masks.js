@@ -14,7 +14,8 @@ class Masks {
             mask: this.phoneMask,
             greedy: false,
             clearIncomplete: true,
-            showMaskOnHover: false
+            showMaskOnHover: false,
+            autoUnmask: true
 		 }).mask(input)
     }
 }

@@ -60,7 +60,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, watch, onMounted } from 'vue'
+import { ref, reactive, computed, watch, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 import masks from '@/utils/masks'
 
@@ -100,16 +100,6 @@ const buttonStatus = computed(() => {
     return (!newContact.name && !newContact.email && !newContact.phone)
 })
 
-watch(() => props.id, (id) => {
-    const editContact = contacts.value.filter(contact => contact.id === id)
-
-    if(editContact) {
-        Object.assign(newContact, editContact[0])
-    }
-},{
-    deep: true
-})
-
 function saveContact() {
     if (newContact.id === 0) {
         newContact.id = contacts.value.length + 1
@@ -130,9 +120,20 @@ function saveContact() {
     emit('close')
 }
 
-onMounted(() => {
-    console.log('oi')
-    masks.inputPhone(inputPhone)
+watch(() => props.id, (id) => {
+    const editContact = contacts.value.filter(contact => contact.id === id)
+
+    if(editContact) {
+        Object.assign(newContact, editContact[0])
+    }
+},{
+    deep: true
+})
+
+watchEffect(() => {
+    if (inputPhone.value) {
+        masks.inputPhone(inputPhone.value)
+    }
 })
 </script>
 
