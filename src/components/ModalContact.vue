@@ -37,7 +37,7 @@
                         id="createContact_inputEmail"
                         v-model="currentContact.email"
                         class="createContact_input"
-                        type="email"                            
+                        type="email"
                     >
                 </div>
                 <div class="createContact_field -small">
@@ -51,6 +51,7 @@
                         v-model="currentContact.phone"
                         class="createContact_input"
                         type="text"
+                        autocomplete="createContact_inputPhone"
                     >
                 </div>
             </form>
@@ -73,7 +74,7 @@ const cleanContactObject = {
     name: '',
     email: '',
     phone: '',
-    date:  {
+    date: {
         created: null,
         updated: null
     }
@@ -92,7 +93,7 @@ const props = defineProps({
     }
 })
 
-const contacts =  computed(() => {
+const contacts = computed(() => {
     return store.state.contacts.all
 })
 
@@ -108,7 +109,7 @@ function saveContact() {
     if (currentContact.id === null) {
         currentContact.id = contacts.value.length + 1
         currentContact.date.created = Date.now()
-		
+
         updatedContacts.unshift({ ...currentContact })
     } else {
         updatedContacts.map(contact => {
@@ -119,23 +120,24 @@ function saveContact() {
             }
         })
     }
-    
+
     store.dispatch('contacts/updateContacts', updatedContacts)
     Object.assign(currentContact, cleanContactObject)
     emit('close')
 }
 
 watch(() => props.id, (newId) => {
-    if(newId !== null) {
+    if (newId !== null) {
         const editContact = contacts.value.filter(contact => contact.id === newId)
 
-        if(editContact.length > 0) {
+        if (editContact.length > 0) {
             Object.assign(currentContact, editContact[0])
         }
-    }   
+    }
 })
 
 watchEffect(() => {
+    console.dir('oiiiiiiiiii')
     if (inputPhone.value) {
         masks.inputPhone(inputPhone.value)
     }
@@ -143,8 +145,8 @@ watchEffect(() => {
 </script>
 
 <style lang="scss">
-@use '@/styles/tokens/spacings.scss' as *;
-@use '@/styles/snippets/fields.scss' as *;
+@use '@/styles/tokens/spacings.scss'as *;
+@use '@/styles/snippets/fields.scss'as *;
 
 .createContact_modalContent {
 	display: flex;
