@@ -13,7 +13,7 @@
                 >
             </a>
 
-            <ButtonCreateContact class="header_button" />
+            <ButtonCreateContact />
 
             <div class="contactSearch_field">
                 <label
