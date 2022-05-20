@@ -12,7 +12,6 @@
         <template #content>
             <form
                 id="createContactForm"
-                ref="createContactForm"
                 class="createContact_modalContent"
                 @submit.prevent="saveContact()"
             >
@@ -68,7 +67,6 @@ import Modal from './Modal.vue'
 
 const store = useStore()
 const inputPhone = ref(null)
-const createContactForm = ref(null)
 
 const cleanContactObject = {
     id: null,
@@ -105,12 +103,15 @@ const buttonStatus = computed(() => {
 })
 
 function saveContact() {
+    const updatedContacts = [ ...contacts.value ]
+
     if (currentContact.id === null) {
         currentContact.id = contacts.value.length + 1
         currentContact.date.created = Date.now()
-        contacts.value.unshift(currentContact)
+		
+        updatedContacts.unshift({ ...currentContact })
     } else {
-        contacts.value.map(contact => {
+        updatedContacts.map(contact => {
             if (currentContact.id === contact.id) {
                 contact.name = currentContact.name
                 contact.email = currentContact.email
@@ -119,7 +120,7 @@ function saveContact() {
         })
     }
     
-    store.dispatch('contacts/updateContacts', contacts)
+    store.dispatch('contacts/updateContacts', updatedContacts)
     Object.assign(currentContact, cleanContactObject)
     emit('close')
 }
@@ -127,7 +128,7 @@ function saveContact() {
 watch(() => props.id, (newId) => {
     if(newId !== null) {
         const editContact = contacts.value.filter(contact => contact.id === newId)
-		
+
         if(editContact.length > 0) {
             Object.assign(currentContact, editContact[0])
         }

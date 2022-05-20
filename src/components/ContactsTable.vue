@@ -76,7 +76,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 import masks from '@/utils/masks'
 import randomColor from '@/utils/randomColor'
@@ -96,7 +96,7 @@ const contacts =  computed(() => {
     return store.state.contacts.all
 })
 
-watch(contacts, (newItems) => {
+watch(contacts, () => {
     checkFeatured()
 }, { deep: true })
 

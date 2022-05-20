@@ -10,11 +10,11 @@ export default {
         }
     },
     async updateContacts(payload) {
-        try {			
+        try {	
             const response = await new Promise(resolve => {
-                const payloadString = JSON.stringify(payload.value)
+                const payloadString = JSON.stringify(payload)
                 localStorage.setItem('contacts', payloadString)	
-				  resolve()
+            	resolve()
             })
 			
             return response
