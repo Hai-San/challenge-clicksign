@@ -33,7 +33,7 @@
                             class="contactsTable_thumbnail"
                             :style="`background-color: ${randomColor()}`"
                         >
-                            {{ contact.name.charAt(0) }}
+                            {{ getFirstLetterOfName(contact.name) }}
                         </div>
                     </td>
                     <td>
@@ -127,6 +127,10 @@ watch(contactsFiltered, () => {
         emptyTitle.value = emptyTitleDefault
     }
 }, { deep: true })
+
+function getFirstLetterOfName(name) {
+    return name.charAt(0)
+}
 
 function isFeatured(el) {
     if(el){
