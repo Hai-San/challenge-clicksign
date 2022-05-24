@@ -150,7 +150,7 @@ function setFeaturedTimeout(el, timer) {
     }, timer)
 }
 
-function loadPatients() {
+function loadContacts() {
     store.dispatch('contacts/fetchContacts')
 }
 
@@ -184,7 +184,7 @@ function getSecondsPassed(date) {
     return Math.abs((Date.now() - date) / 1000)
 }
 
-loadPatients()
+loadContacts()
 </script>
 
 <style lang="scss">
