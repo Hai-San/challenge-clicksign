@@ -118,8 +118,8 @@ const contactsFiltered = computed(() => {
     })
 }) 
 
-watch(listItems, () => {
-    checkFeaturedItems()
+watch(listItems, (newListItems) => {
+    checkFeaturedItems(newListItems)
 }, { deep: true })
 
 watch(contactsFiltered, () => {
@@ -138,11 +138,13 @@ function getFirstLetterOfName(name) {
     return name.charAt(0)
 }
 
-function checkFeaturedItems() {
-    listItems.value.forEach(el => {
-        const timeData = getItemTimeData(el)
-        if(timeData.haveTimeLeft && !el.classList.contains(featuredContactClass)) {   
-            el.style.animation = `bgColor ${timeData.timer}ms 1`
+function checkFeaturedItems(elements) {
+    elements.forEach(el => {
+        if(el) {
+            const timeData = getItemTimeData(el)
+            if(timeData.haveTimeLeft && !el.classList.contains(featuredContactClass)) {   
+                el.style.animation = `bgColor ${timeData.timer}ms 1`
+            }
         }
     })      
 }
