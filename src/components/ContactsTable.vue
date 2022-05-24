@@ -31,7 +31,7 @@
                     <td class="contactsTable_thumbnail_col">
                         <div
                             class="contactsTable_thumbnail"
-                            :style="`background-color: ${randomColor()}`"
+                            :style="getThumbnailBackgroundColor(contact.color)"
                         >
                             {{ getFirstLetterOfName(contact.name) }}
                         </div>
@@ -80,7 +80,6 @@
 import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import masks from '@/utils/masks'
-import randomColor from '@/utils/randomColor'
 import ModalContact from '@/components/ModalContact.vue'
 import ModalContactDelete from '@/components/ModalContactDelete.vue'
 
@@ -127,6 +126,10 @@ watch(contactsFiltered, () => {
         emptyTitle.value = emptyTitleDefault
     }
 }, { deep: true })
+
+function getThumbnailBackgroundColor(color) {
+    return `background-color: ${color}`
+}
 
 function getFirstLetterOfName(name) {
     return name.charAt(0)

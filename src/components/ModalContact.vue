@@ -64,6 +64,7 @@ import { ref, reactive, computed, watch, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 import cloneObject from '@/utils/cloneObject'
 import masks from '@/utils/masks'
+import randomColor from '@/utils/randomColor'
 
 import Modal from './Modal.vue'
 
@@ -71,6 +72,7 @@ const store = useStore()
 const inputPhone = ref(null)
 
 const cleanContactObject = {
+    color: '',
     name: '',
     email: '',
     phone: '',
@@ -124,6 +126,7 @@ function saveContact() {
 
 function createContact(contacts) {
     currentContact.date.created = Date.now()
+    currentContact.color = randomColor()
     contacts.unshift({ ...currentContact })
     return contacts
 }
