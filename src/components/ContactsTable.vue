@@ -27,7 +27,6 @@
                     :ref="el => listItems[index] = el"
                     :data-created="contact.date.created"
                 >
-                    {{ isFeatured(listItems[index]) }}
                     <td class="contactsTable_thumbnail_col">
                         <div
                             class="contactsTable_thumbnail"
@@ -119,6 +118,10 @@ const contactsFiltered = computed(() => {
     })
 }) 
 
+watch(listItems, () => {
+    checkFeaturedItems()
+}, { deep: true })
+
 watch(contactsFiltered, () => {
     if (contactsFiltered.value.length <= 0 && contacts.value.length > 0) {
         emptyTitle.value = emptyTitleFilter
@@ -135,14 +138,13 @@ function getFirstLetterOfName(name) {
     return name.charAt(0)
 }
 
-function isFeatured(el) {
-    if(el){
+function checkFeaturedItems() {
+    listItems.value.forEach(el => {
         const timeData = getItemTimeData(el)
         if(timeData.haveTimeLeft && !el.classList.contains(featuredContactClass)) {   
-            console.log('animaou')
             el.style.animation = `bgColor ${timeData.timer}ms 1`
         }
-    }    
+    })      
 }
 
 function loadContacts() {
