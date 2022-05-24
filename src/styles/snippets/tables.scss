@@ -53,12 +53,7 @@
 
 	tbody {
 
-		tr {
-
-			&.is_featured {
-				background-color: $color-primary-lightest;
-			}	
-
+		tr {	
 			@include interaction_full {
 				background-color: $color-primary-lightest;
 			}

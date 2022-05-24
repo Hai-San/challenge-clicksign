@@ -26,8 +26,8 @@
                     :key="`${index}_${contact.name}`"
                     :ref="el => listItems[index] = el"
                     :data-created="contact.date.created"
-                    :class="{[featuredContactClass]: isFeatured(listItems[index])}"
                 >
+                    {{ isFeatured(listItems[index]) }}
                     <td class="contactsTable_thumbnail_col">
                         <div
                             class="contactsTable_thumbnail"
@@ -138,23 +138,11 @@ function getFirstLetterOfName(name) {
 function isFeatured(el) {
     if(el){
         const timeData = getItemTimeData(el)
-        if(timeData.haveTimeLeft && !el.classList.contains(featuredContactClass)) {                          
-            setFeaturedTimeout(el, timeData.timer)
-            return true
+        if(timeData.haveTimeLeft && !el.classList.contains(featuredContactClass)) {   
+            console.log('animaou')
+            el.style.animation = `bgColor ${timeData.timer}ms 1`
         }
-        return false
     }    
-}
-
-function setFeaturedTimeout(el, timer) {   
-    setTimeout(function() {
-        const timeData = getItemTimeData(el)
-        if(timeData.haveTimeLeft) {
-            setFeaturedTimeout(el, timeData.timer)
-        } else {
-            el.classList.remove(featuredContactClass)
-        }
-    }, timer)
 }
 
 function loadContacts() {
@@ -269,6 +257,13 @@ loadContacts()
 
 	@include interaction_full {
 		background-color: $color-low-base;
+	}
+}
+
+@keyframes bgColor{
+
+	0%,100%  {
+		background-color: $color-primary-lightest;
 	}
 }
 </style>
