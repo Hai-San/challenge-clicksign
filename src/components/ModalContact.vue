@@ -108,27 +108,37 @@ function resetContact() {
 }
 
 function saveContact() {
-    const updatedContacts = [ ...contacts.value ]
-
-    if (props.editIndex === null) {
-        currentContact.date.created = Date.now()
-
-        updatedContacts.unshift({ ...currentContact })
+    let updatedContacts = [ ...contacts.value ]
+    
+    if (props.editIndex === null) {        
+        updatedContacts = createContact(updatedContacts)
     } else {
-        updatedContacts.map((contact, index) => {
-            if (index === props.editIndex) {
-                contact.name = currentContact.name
-                contact.email = currentContact.email
-                contact.phone = currentContact.phone
-                contact.date.updated = Date.now()
-            }
-        })
+        updatedContacts = editContact(updatedContacts)
     }
 
     store.dispatch('contacts/updateContacts', updatedContacts)
     resetContact()
     
     emit('close')
+}
+
+function createContact(contacts) {
+    currentContact.date.created = Date.now()
+    contacts.unshift({ ...currentContact })
+    return contacts
+}
+
+function editContact(contacts) {
+    contacts.map((contact, index) => {
+        if (index === props.editIndex) {
+            contact.name = currentContact.name
+            contact.email = currentContact.email
+            contact.phone = currentContact.phone
+            contact.date.updated = Date.now()
+        }
+    })
+
+    return contacts
 }
 
 watch(() => props.editIndex, (newEditIndex) => {
